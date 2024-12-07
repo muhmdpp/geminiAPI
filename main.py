@@ -25,7 +25,7 @@ def get_destinations(preferences: UserPreferences):
             f"Based on that, suggest me some destinations. Give it as a list where the "
             f"destination name and just my preferences: the preferences are budget: {preferences.budget}, "
             f"activities: {preferences.activities}, no. of days: {preferences.noOfDays}. "
-            f"Just give the destination names alone and the best 2 spots of that particular area."
+            f"Just give the destination names alone and the best 2 spots of that particular area.give in the format of just destination name,attractions as array. the output should not contain anything other than that"
         )
         response = model.generate_content(prompt)
         return {"destinations": response.text}

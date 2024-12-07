@@ -22,12 +22,18 @@ def get_destinations(preferences: UserPreferences):
     try:
         # Generate content based on user input
         prompt = (
-            f"I am creating a tour guiding app, I will tell the itineraries and preferences. "
-            f"Based on that, suggest me some destinations. Give it as a list where the "
-            f"destination name and just my preferences: the preferences are budget: {preferences.budget}, "
-            f"activities: {preferences.activities}, no. of days: {preferences.noOfDays}. "
-            f"Just give the destination names alone and the best 2 spots of that particular area.give in the format of just destination name,attractions as array. the output should not contain anything other than that"
+            f"I am creating a tour guiding app. Based on the given preferences, "
+            f"suggest me destinations along with the top two attractions in each destination. "
+            f"The preferences are budget: {preferences.budget}, activities: {preferences.activities}, "
+            f"and number of days: {preferences.noOfDays}. "
+            f"Return the output as a JSON object where each destination is a key, and its value is an object "
+            f"with 'Attractions' as a key containing an array of the top two attractions. The format should be: "
+            f"{{"
+            f'"Destination Name": {{"Attractions": ["Attraction 1", "Attraction 2"]}}, '
+            f'"Next Destination Name": {{"Attractions": ["Attraction 1", "Attraction 2"]}}'
+            f"}}. No other text should be included in the output."
         )
+
         response = model.generate_content(prompt)
         return {"destinations": response.text}
     except Exception as e:

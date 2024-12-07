@@ -15,6 +15,11 @@ class UserPreferences(BaseModel):
     budget: str
     noOfDays: str
 
+# Define a response model for the API
+class Destination(BaseModel):
+    name: str
+    attractions: list[str]
+
 # Define the API endpoint
 @app.post("/get-destinations/")
 def get_destinations(preferences: UserPreferences):
@@ -28,6 +33,17 @@ def get_destinations(preferences: UserPreferences):
             f"Just give the destination names alone and the best 2 spots of that particular area.give in the format of just destination name,attractions as array. the output should not contain anything other than that"
         )
         response = model.generate_content(prompt)
-        return {"destinations": response.text}
+
+        # Process the generated text
+        destinations_list = []
+        for destination_str in response.text.split("\n"):
+            destination_parts = destination_str.split(",")
+            destination_name = destination_parts[0].strip()
+            attractions = destination_parts[1].strip()[1:-1].split(", ")
+            destinations_list.append(Destination(name=destination_name, attractions=attractions))
+
+        # Return the response with a list of destinations
+        return {"destinations": destinations_list}
+
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

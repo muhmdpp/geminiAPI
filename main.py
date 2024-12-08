@@ -27,7 +27,7 @@ def get_destinations(preferences: UserPreferences):
             f"The preferences are budget: {preferences.budget}, activities: {preferences.activities}, "
             f"and number of days: {preferences.noOfDays}. "
             f"Return the output as a JSON object where each destination is a key, and its value is an object "
-            f"with 'Attractions' as a key containing an array of the top two attractions. The format should be: "
+            f"with 'Attractions' as a key containing an array of the top two attractions.include relevant emojis.  The format should be: "
             f"{{"
             f'"Destination Name": {{"Attractions": ["Attraction 1", "Attraction 2"]}}, '
             f'"Next Destination Name": {{"Attractions": ["Attraction 1", "Attraction 2"]}}'
